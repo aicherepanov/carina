@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -98,6 +99,8 @@ public class DesktopFactory extends AbstractFactory {
 
             driver = new RemoteWebDriver(ce, capabilities);
 
+            //TODO: that's a hotfix to experiment only to analyze test results
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
             resizeBrowserWindow(driver, capabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException("Unable to create desktop driver", e);
